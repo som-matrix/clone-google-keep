@@ -1,12 +1,11 @@
-import React from 'react'
-import Notes from '../components/notes'
-import {Container} from '../styles/globalStyle'
+import React from "react";
+import Notes from "../components/notes";
 const Home = () => {
-    return (
-        <Container>
-            <Notes/>
-        </Container>
-    )
-}
+  return (
+    <div>
+      <Notes />;
+    </div>
+  );
+};
 
-export default Home
+export default Home;

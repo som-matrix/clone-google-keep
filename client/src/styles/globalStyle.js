@@ -23,6 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration:none;
     color: ${props=>props.theme.text};
  }
+ 
 `
 export const Container = styled.div`
  min-height:100vh;

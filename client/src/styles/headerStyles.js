@@ -98,29 +98,3 @@ export const StyledHeader = styled.div`
   }
 `;
 
-export const SideMenu = styled.div`
- height:10rem;
- width:200px;
- max-width: 100%;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- .menu-item{
-   height:40px;
-   width:100%;
-   margin-top:1rem;
-   display:flex;
-   justify-content:center;
-   align-items:center;
- }
- img{
-   height:24px;
-   width:24px;
-   margin-right:1.5rem;
- }
- h2{
-   font-size:1rem;
-   font-weight:400;
- }
-`

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { GlobalStyles } from "./styles/globalStyle";
 // Global Component
 import Header from "./components/header";
+import SideMenu from "./components/sideMenu";
 // Pages
 import Home from "./pages/home";
 import SearchPage from "./pages/search";
@@ -20,7 +21,7 @@ const lightTheme = {
 };
 function App() {
   const [theme, setCurrentTheme] = useState("dark");
-  const [searchedInput, setSearchedInput] = useState([]);
+  const [showMenu, setShowMenu] = useState("false");
   const themes = window.localStorage.getItem("theme");
   return (
     <Router>
@@ -30,15 +31,16 @@ function App() {
           <Header
             theme={theme}
             setCurrentTheme={setCurrentTheme}
-            searchedInput={searchedInput}
-            setSearchedInput={setSearchedInput}
+            showMenu={showMenu}
+            setShowMenu={setShowMenu}
           />
+          <SideMenu showMenu={showMenu} />
           <Switch>
             <Route exact path="/">
               <Home />
             </Route>
             <Route path="/search">
-              <SearchPage searchedInput={searchedInput} />
+              <SearchPage />
             </Route>
             <Route path="/trash">
               <Trash />

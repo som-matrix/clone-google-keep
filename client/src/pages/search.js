@@ -1,6 +1,6 @@
 import React from 'react'
 import {Container} from '../styles/globalStyle'
-const SearchPage = ({searchedInput}) => {
+const SearchPage = () => {
     return (
         <Container>
            search
