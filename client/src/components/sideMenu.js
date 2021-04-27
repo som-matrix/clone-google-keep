@@ -1,21 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import { StyledMenu } from "../styles/menuStyles";
+import { AnimatePresence, motion } from "framer-motion";
 import Notes from "../assets/note.png";
 import Trash from "../assets/delete.png";
 const SideMenu = ({ showMenu }) => {
   return (
     <AnimatePresence exitBeforeEnter>
       {!showMenu && (
-        <StyledMenu
+        <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{
             x: 0,
             opacity: 1,
             transition: { duration: 0.3, ease: "easeOut" },
           }}
-          exit={{x:-100,opacity:0,transition:{duration:0.3}}}
+          exit={{ x: -100, opacity: 0, transition: { duration: 0.3 } }}
         >
           <div className="menu" id={!showMenu ? "menu-active" : ""}>
             <div>
@@ -41,7 +40,7 @@ const SideMenu = ({ showMenu }) => {
               </Link>
             </div>
           </div>
-        </StyledMenu>
+        </motion.div>
       )}
     </AnimatePresence>
   );

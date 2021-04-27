@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-
-// Styled-components
-import { StyledHeader } from "../styles/headerStyles";
 // SVG's
 import Logo from "../assets/google-keep (1).png";
-import Settings from "../assets/settings.png";
-import Menu from "../assets/list.png";
-import Search from "../assets/loupe.png";
 
 const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
   const history = useHistory();
@@ -32,34 +26,35 @@ const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
     return history.push("/search");
   };
   return (
-    <div>
-      <StyledHeader>
-        <div className="flex">
-          <div className="child-1">
-            <div className="menu" onClick={() => setShowMenu(!showMenu)}>
-              <img src={Menu} alt="menu" />
-            </div>
-            <div className="logo">
-              <img src={Logo} alt="keep-logo" />
-              <Link to="/">
-                <h1>Keep</h1>
-              </Link>
-            </div>
-            <form onSubmit={searchHandler}>
-              <img src={Search} alt="search" />
-              <input type="text" placeholder="Search here" />
-            </form>
+    <div className="w-screen h-20">
+      <div className="flex p-2 items-center max-w-full">
+        <div className="flex items-center space-x-4">
+          <div className="flex-shrink" onClick={() => setShowMenu(!showMenu)}>
+            <h1>Menu</h1>
           </div>
-          <div className="child-2" onClick={() => setShowSetting(!showSetting)}>
-            <img src={Settings} alt="settings" />
+          <div className="flex items-center space-x-2">
+            <img src={Logo} alt="keep-logo" />
+            <Link to="/">
+              <h1>Keep</h1>
+            </Link>
           </div>
         </div>
-        {!showSetting && (
-          <div className="down">
-            <h3 onClick={themeHandler}>Toggle theme</h3>
-          </div>
-        )}
-      </StyledHeader>
+        <div
+          className="flex flex-grow"
+          onClick={() => setShowSetting(!showSetting)}
+        >
+          <form onSubmit={searchHandler}>
+            <h2>Search icon</h2>
+            <input type="text" placeholder="Search here" />
+          </form>
+          <h2>Setting icon</h2>
+        </div>
+      </div>
+      {!showSetting && (
+        <div className="down">
+          <h3 onClick={themeHandler}>Toggle theme</h3>
+        </div>
+      )}
     </div>
   );
 };
