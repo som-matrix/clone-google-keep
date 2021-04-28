@@ -11,7 +11,7 @@ import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const darkTheme = {
   backgroundColor: "#333",
-  text: "#fff",
+  text: "#ffffff",
   input: "rgba(0,0,0,0.3)",
 };
 const lightTheme = {

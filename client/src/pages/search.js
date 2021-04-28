@@ -1,11 +1,6 @@
-import React from 'react'
-import {Container} from '../styles/globalStyle'
+import React from "react";
 const SearchPage = () => {
-    return (
-        <Container>
-           search
-        </Container>
-    )
-}
+  return <div>Search</div>;
+};
 
-export default SearchPage
+export default SearchPage;

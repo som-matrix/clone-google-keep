@@ -1,11 +1,6 @@
-import React from 'react'
-import {Container} from '../styles/globalStyle'
+import React from "react";
 const Trash = () => {
-    return (
-        <Container>
-            Trash
-        </Container>
-    )
-}
+  return <div>Trash</div>;
+};
 
-export default Trash
+export default Trash;

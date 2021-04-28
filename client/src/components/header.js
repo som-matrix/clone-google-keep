@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 // SVG's
 import Logo from "../assets/google-keep (1).png";
-
+import { Menu, Setting, Search } from "../assets/svg-icons";
 const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
   const history = useHistory();
   const [showSetting, setShowSetting] = useState("false");
@@ -26,32 +26,37 @@ const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
     return history.push("/search");
   };
   return (
-    <div className="w-screen h-20">
+    <div className="w-screen h-20 relative">
       <div className="flex p-2 items-center max-w-full">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 mx-2">
           <div className="flex-shrink" onClick={() => setShowMenu(!showMenu)}>
-            <h1>Menu</h1>
+            <Menu />
           </div>
           <div className="flex items-center space-x-2">
-            <img src={Logo} alt="keep-logo" />
+            <img className="h-6 w-6" src={Logo} alt="keep-logo" />
             <Link to="/">
               <h1>Keep</h1>
             </Link>
           </div>
         </div>
         <div
-          className="flex flex-grow"
+          className="flex items-center flex-1 justify-between p-3"
           onClick={() => setShowSetting(!showSetting)}
         >
-          <form onSubmit={searchHandler}>
-            <h2>Search icon</h2>
+          <form
+            className="flex items-center space-x-3"
+            onSubmit={searchHandler}
+          >
+            <Search />
             <input type="text" placeholder="Search here" />
           </form>
-          <h2>Setting icon</h2>
+          <div>
+            <Setting />
+          </div>
         </div>
       </div>
       {!showSetting && (
-        <div className="down">
+        <div className="absolute inset-y-10 right-3 cursor-pointer">
           <h3 onClick={themeHandler}>Toggle theme</h3>
         </div>
       )}

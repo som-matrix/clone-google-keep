@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import Notes from "../assets/note.png";
-import Trash from "../assets/delete.png";
+import { Notes, Trash } from "../assets/svg-icons";
 const SideMenu = ({ showMenu }) => {
   return (
     <AnimatePresence exitBeforeEnter>
@@ -19,7 +18,7 @@ const SideMenu = ({ showMenu }) => {
           <div className="menu" id={!showMenu ? "menu-active" : ""}>
             <div>
               <Link to="/">
-                <img src={Notes} alt="notes" />
+                <Notes />
               </Link>
             </div>
             <div>
@@ -31,7 +30,7 @@ const SideMenu = ({ showMenu }) => {
           <div className="menu" id={!showMenu ? "menu-active" : ""}>
             <div>
               <Link to="/trash">
-                <img src={Trash} alt="trash" />
+                <Trash />
               </Link>
             </div>
             <div>

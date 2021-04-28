@@ -1,4 +1,5 @@
 import React from "react";
+import { Edit, Gallery, ColorPallete } from "../assets/svg-icons";
 const Notes = () => {
   return (
     <div>
@@ -13,9 +14,18 @@ const Notes = () => {
         />
       </form>
       <div>
-        <h3>Icon1</h3>
-        <h3>Icon2</h3>
-        <h3>Icon3</h3>
+        <div>
+          <Edit />
+          <h3>Edit</h3>
+        </div>
+        <div>
+          <Gallery />
+          <h3>Add Image</h3>
+        </div>
+        <div>
+          <ColorPallete />
+          <h3>Choose Color</h3>
+        </div>
       </div>
     </div>
   );
