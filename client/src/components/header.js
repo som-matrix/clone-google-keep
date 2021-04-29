@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 // SVG's
 import Logo from "../assets/google-keep (1).png";
-import { Menu, Setting, Search } from "../assets/svg-icons";
+import { Menu, Setting, Search, Notes, Trash } from "../assets/svg-icons";
+import { motion } from "framer-motion";
 const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
   const history = useHistory();
   const [showSetting, setShowSetting] = useState("false");
@@ -39,27 +40,86 @@ const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
             </Link>
           </div>
         </div>
-        <div
-          className="flex items-center flex-1 justify-between p-3"
-          onClick={() => setShowSetting(!showSetting)}
-        >
+        <div className="flex items-center h-full w-full justify-between p-3">
           <form
-            className="flex items-center space-x-3"
+            className="flex items-center space-x-3  relative"
             onSubmit={searchHandler}
           >
-            <Search />
-            <input type="text" placeholder="Search here" />
+            <div className="absolute inset-2 left-5 z-10">
+              <Search />
+            </div>
+            <input
+              className={`shadow-xl pl-10 py-2 rounded-md ${
+                theme === "dark" ? "bg-black text-white" : ""
+              }`}
+              placeholder="Search.."
+              type="text"
+            />
           </form>
-          <div>
+          <div onClick={() => setShowSetting(!showSetting)}>
             <Setting />
           </div>
         </div>
       </div>
       {!showSetting && (
-        <div className="absolute inset-y-10 right-3 cursor-pointer">
-          <h3 onClick={themeHandler}>Toggle theme</h3>
+        <div className="absolute inset-y-20 right-8 cursor-pointer">
+          <h3
+            className={`font-md ${theme === "dark" ? "text-white" : ""}`}
+            onClick={themeHandler}
+          >
+            Toggle theme
+          </h3>
         </div>
       )}
+      <div className="absolute">
+        {!showMenu && (
+          <motion.div
+            className="h-auto max-w-xs p-4"
+            initial={{ x: -100, opacity: 0 }}
+            animate={{
+              x: 0,
+              opacity: 1,
+              transition: { duration: 0.3, ease: "easeOut" },
+            }}
+            exit={{ x: -100, opacity: 0, transition: { duration: 0.3 } }}
+          >
+            <div
+              className={`flex items-center space-x-8 py-3 px-1 mb-6  ${
+                theme === "dark" ? "hover:bg-yellow-500" : "hover:bg-yellow-200"
+              } rounded-md`}
+              id={!showMenu ? "menu-active" : ""}
+            >
+              <div>
+                <Link to="/">
+                  <Notes />
+                </Link>
+              </div>
+              <div>
+                <Link to="/">
+                  <h3>Notes</h3>
+                </Link>
+              </div>
+            </div>
+            <div
+              className={`flex items-center space-x-8 py-3 px-1 w-72 ${
+                theme === "dark" ? "hover:bg-yellow-500" : "hover:bg-yellow-200"
+              } rounded-md`}
+              id={!showMenu ? "menu-active" : ""}
+            >
+              <div>
+                <Link to="/trash">
+                  <Trash />
+                </Link>
+              </div>
+              <div>
+                <Link to="/trash">
+                  <h3>Trash</h3>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 };

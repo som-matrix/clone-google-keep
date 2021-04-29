@@ -27,5 +27,6 @@ export const GlobalStyles = createGlobalStyle`
     cursor:pointer;
     stroke:${(props) => props.theme.text};
  }
+
  
 `;

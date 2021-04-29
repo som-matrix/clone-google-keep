@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { GlobalStyles } from "./styles/globalStyle";
 // Global Component
 import Header from "./components/header";
-import SideMenu from "./components/sideMenu";
 // Pages
 import Home from "./pages/home";
 import SearchPage from "./pages/search";
@@ -34,10 +33,9 @@ function App() {
             showMenu={showMenu}
             setShowMenu={setShowMenu}
           />
-          <SideMenu showMenu={showMenu} />
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Home theme={theme} />
             </Route>
             <Route path="/search">
               <SearchPage />
