@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Edit, Gallery, ColorPallete } from "../assets/svg-icons";
 const Notes = ({ theme }) => {
   return (

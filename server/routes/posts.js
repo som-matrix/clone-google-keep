@@ -1,7 +1,5 @@
 import express from "express";
-
+import { getPost } from "../controllers/posts.js";
 export const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Home page");
-});
+router.get("/", getPost);
