@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { keepAction } from "../actions/keepNotes";
 import { Edit, Gallery, ColorPallete } from "../assets/svg-icons";
-const Notes = ({ theme, showImage, setShowImage }) => {
+const Notes = ({ theme, showImage, setShowImage, noteDetails }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(keepAction());
+  });
+  const { keepNotes } = useSelector((state) => state.notes);
+
   const [baseFile, setBaseFile] = useState(" ");
+  const [showColor, setShowColor] = useState(false);
   // Converting image into base64
   const getImage = async (e) => {
     let files = e.target.files[0];
@@ -23,7 +32,7 @@ const Notes = ({ theme, showImage, setShowImage }) => {
   return (
     <div className="w-full h-screen">
       <div className="flex items-center flex-col  max-w-4xl h-96 mx-auto">
-        <form method="post" className="h-12 w-full  ">
+        <form className="h-12 w-full  ">
           <input
             className={`h-full shadow-md rounded-md   py-4 px-2 w-3/4 ${
               theme === "dark" ? "bg-black text-white" : ""
@@ -33,7 +42,7 @@ const Notes = ({ theme, showImage, setShowImage }) => {
           />
         </form>
         <div className="w-full h-72 mt-2">
-          <form method="post" className="h-36 w-full">
+          <form className="h-36 w-full">
             <input
               className={` w-3/4 mt-1 shadow-md h-full py-4 px-2 rounded-md ${
                 theme === "dark" ? "bg-black text-white" : ""
@@ -42,7 +51,7 @@ const Notes = ({ theme, showImage, setShowImage }) => {
               placeholder="Description.."
             />
           </form>
-          <form method="post" className="mt-3 p-2">
+          <form className="mt-3 p-2">
             <label className="inline-block mr-2" htmlFor="file">
               <Gallery />
             </label>
@@ -53,10 +62,10 @@ const Notes = ({ theme, showImage, setShowImage }) => {
             />
           </form>
           {showImage && (
-            <div className="h-66 w-66 overflow-hidden">
+            <div className="h-66 max-w-4xl">
               {showImage && (
                 <img
-                  className=" h-52 w-52 object-cover"
+                  className="h-full w-full object-cover overflow-hidden"
                   src={baseFile}
                   alt="base"
                 />
@@ -73,7 +82,7 @@ const Notes = ({ theme, showImage, setShowImage }) => {
             <div className="flex items-center space-x-8">
               <Edit />
 
-              <ColorPallete />
+              <ColorPallete showColor={showColor} setShowColor={setShowColor} />
             </div>
             <div>
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -81,6 +90,26 @@ const Notes = ({ theme, showImage, setShowImage }) => {
               </button>
             </div>
           </div>
+          {showColor && (
+            <motion.div
+              initial={{ y: -12, opacity: 0 }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                transition: { duration: 0.4, ease: "easeInOut" },
+              }}
+              className="bg-gray-300 mt-4 rounded-md py-2 ml-6 shadow-md h-12 max-w-sm"
+            >
+              {showColor &&
+                noteDetails.colors.map((col) => (
+                  <div
+                    className="inline-block ml-2 h-8 w-8 rounded-full cursor-pointer"
+                    style={{ backgroundColor: col.color }}
+                    key={col.id}
+                  ></div>
+                ))}
+            </motion.div>
+          )}
         </div>
       </div>
     </div>

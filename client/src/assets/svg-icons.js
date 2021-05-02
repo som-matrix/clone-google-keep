@@ -118,9 +118,10 @@ export const Gallery = () => {
   );
 };
 
-export const ColorPallete = () => {
+export const ColorPallete = ({ showColor, setShowColor }) => {
   return (
     <svg
+      onClick={() => setShowColor(!showColor)}
       xmlns="http://www.w3.org/2000/svg"
       className="h-6 w-6"
       fill="none"
