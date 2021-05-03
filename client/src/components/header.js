@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 // SVG's
 import Logo from "../assets/google-keep (1).png";
@@ -18,7 +18,7 @@ const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
       setShowSetting(" ");
     }
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
     localTheme && setCurrentTheme(localTheme);
   }, [theme, setCurrentTheme]);
