@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const keepSchema = mongoose.Schema({
   title: String,
   description: String,
-  colors: [{}],
   selectedFile: String,
   date: {
     type: Date,

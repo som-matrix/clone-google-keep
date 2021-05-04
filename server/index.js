@@ -7,7 +7,7 @@ const app = express();
 // Simple Enable all cors request
 app.use(cors());
 // Bodyparser middleware
-app.use(express.urlencoded({ limit: "30mb", extended: "true" }));
+app.use(express.urlencoded({ limit: "30mb", extended: "false" }));
 // MongoDB
 mongoose
   .connect(connectionUri, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -14,3 +14,18 @@ export const keepAction = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const postKeepAction = (newNote) => async (dispatch) => {
+  try {
+    const { data } = await api.createNotes(newNote);
+    console.log(data);
+    dispatch({
+      type: "CREATE_NOTE",
+      payload: {
+        keepNotes: data,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

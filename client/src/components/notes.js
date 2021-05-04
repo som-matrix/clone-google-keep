@@ -1,20 +1,31 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { keepAction } from "../actions/keepNotes";
+import { useDispatch } from "react-redux";
+import { postKeepAction } from "../actions/keepNotes";
 import { Edit, Gallery, ColorPallete } from "../assets/svg-icons";
-
-const Notes = ({
-  theme,
-  showImage,
-  setShowImage,
-  noteDetails,
-  setNoteDetails,
-}) => {
+import FileBase from "react-file-base64";
+const Notes = ({ theme }) => {
   const dispatch = useDispatch();
-  const { keepNotes } = useSelector((state) => state.notes);
+  const [showImage, setShowImage] = useState(false);
+  const [postNoteData, setPostNoteData] = useState({
+    Title: "",
+    Description: "",
+    selectedImage: "",
+  });
   const [baseFile, setBaseFile] = useState(" ");
   const [showColor, setShowColor] = useState(false);
+  const [colors, setColors] = useState([
+    { id: 0, bg: "#ffffff", textCol: "#333" },
+    { id: 1, bg: "#de8971", textCol: "#333" },
+    { id: 2, bg: "#ff8303", textCol: "#333" },
+    { id: 3, bg: "#fdca40", textCol: "#333" },
+    { id: 4, bg: "#9ede73", textCol: "#333" },
+    { id: 5, bg: "#00adb5", textCol: "#333" },
+    { id: 6, bg: "#ff75a0", textCol: "#333" },
+    { id: 7, bg: "#2f5d62", textCol: "#333" },
+    { id: 8, bg: "#333333", textCol: "#fff" },
+  ]);
+  const [currentColor, setCurrentColor] = useState([""]);
   // Converting image into base64
   const getImage = async (e) => {
     let files = e.target.files[0];
@@ -29,45 +40,70 @@ const Notes = ({
       reader.onload = () => resolve(reader.result);
       reader.onerror = (error) => reject(error);
     });
-  const handaleFiles = () => {
-    setShowImage(!showImage);
-  };
   const selectedColorHandler = (e) => {
     const { style } = e.target;
-    return style.backgroundColor;
+    setCurrentColor(style.backgroundColor);
+    setShowColor(!showColor);
+  };
+  const formHandler = (e) => {
+    e.preventDefault();
+    dispatch(postKeepAction(postNoteData));
+    console.log(postNoteData);
   };
   return (
     <div className="w-full h-screen">
       <div className="flex items-center flex-col  max-w-4xl h-96 mx-auto">
-        <form className="h-12 w-full  ">
+        <form method="post" className="h-96 w-full" onSubmit={formHandler}>
           <input
-            className={`h-full shadow-md rounded-md   py-4 px-2 w-3/4 ${
-              theme === "dark" ? "bg-gray-900 text-white" : ""
+            onChange={(e) =>
+              setPostNoteData({ ...postNoteData, Title: e.target.value })
+            }
+            style={{
+              backgroundColor: currentColor,
+            }}
+            className={`h-12 shadow-md rounded-md mb-5 py-4 px-2 w-3/4 ${
+              theme === "dark" ? "bg-gray-900" : ""
             }`}
             type="text"
             placeholder="Title"
+            value={postNoteData.title}
           />
-        </form>
-        <div className="w-full h-72 mt-2">
-          <form className="h-36 w-full">
-            <input
-              className={` w-3/4 mt-1 shadow-md h-full py-4 px-2 rounded-md ${
-                theme === "dark" ? "bg-gray-900 text-white" : ""
-              }`}
-              type="text"
-              placeholder="Description.."
-            />
-          </form>
-          <form className="mt-3 p-2">
-            <label className="inline-block mr-2" htmlFor="file">
+          <input
+            onChange={(e) =>
+              setPostNoteData({ ...postNoteData, Description: e.target.value })
+            }
+            style={{
+              backgroundColor: currentColor,
+            }}
+            className={` w-3/4  shadow-md h-32 py-4 px-2 rounded-md ${
+              theme === "dark" ? "bg-gray-900" : ""
+            }`}
+            type="text"
+            value={postNoteData.description}
+            placeholder="Description.."
+          />
+          <div className="flex items-center space-x-4 mt-3">
+            {/* <label className="inline-block mr-2" htmlFor="file">
               <Gallery />
             </label>
             <input
               onChange={getImage}
+              onLoad={() =>
+                setPostNoteData({ ...postNoteData, selectedImage: baseFile })
+              }
               type="file"
               accept="image/png image/jpeg image/jpg"
+            /> */}
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setPostNoteData({ ...postNoteData, selectedImage: base64 })
+              }
             />
-          </form>
+          </div>
+        </form>
+        <div className="w-full h-72 mt-2">
           {showImage && (
             <div className="h-66 max-w-4xl">
               {showImage && (
@@ -78,7 +114,7 @@ const Notes = ({
                 />
               )}
               <button
-                onClick={handaleFiles}
+                onClick={() => setShowImage(!showImage)}
                 className="mt-2 bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded"
               >
                 Remove
@@ -92,7 +128,10 @@ const Notes = ({
               <ColorPallete showColor={showColor} setShowColor={setShowColor} />
             </div>
             <div>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button
+                onClick={formHandler}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
                 Create
               </button>
             </div>
@@ -108,12 +147,12 @@ const Notes = ({
               className="bg-gray-300 mt-4 rounded-md py-2 ml-6 shadow-md h-12 max-w-sm"
             >
               {showColor &&
-                noteDetails.colors.map((col) => (
+                colors.map((color) => (
                   <div
                     onClick={selectedColorHandler}
                     className="inline-block ml-2 h-8 w-8 rounded-full cursor-pointer"
-                    style={{ backgroundColor: col.color }}
-                    key={col.id}
+                    style={{ backgroundColor: color.bg, color: color.textCol }}
+                    key={color.id}
                   ></div>
                 ))}
             </motion.div>
