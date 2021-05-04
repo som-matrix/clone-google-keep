@@ -50,7 +50,7 @@ const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
             </div>
             <input
               className={`shadow-md pl-10 py-2 rounded-md ${
-                theme === "dark" ? "bg-black text-white" : ""
+                theme === "dark" ? "bg-gray-900 text-white" : ""
               }`}
               placeholder="Search.."
               type="text"

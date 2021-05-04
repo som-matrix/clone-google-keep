@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { keepAction } from "../actions/keepNotes";
 import { Edit, Gallery, ColorPallete } from "../assets/svg-icons";
-const Notes = ({ theme, showImage, setShowImage, noteDetails }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(keepAction());
-  });
-  const { keepNotes } = useSelector((state) => state.notes);
 
+const Notes = ({
+  theme,
+  showImage,
+  setShowImage,
+  noteDetails,
+  setNoteDetails,
+}) => {
+  const dispatch = useDispatch();
+  const { keepNotes } = useSelector((state) => state.notes);
   const [baseFile, setBaseFile] = useState(" ");
   const [showColor, setShowColor] = useState(false);
   // Converting image into base64
@@ -29,13 +32,17 @@ const Notes = ({ theme, showImage, setShowImage, noteDetails }) => {
   const handaleFiles = () => {
     setShowImage(!showImage);
   };
+  const selectedColorHandler = (e) => {
+    const { style } = e.target;
+    return style.backgroundColor;
+  };
   return (
     <div className="w-full h-screen">
       <div className="flex items-center flex-col  max-w-4xl h-96 mx-auto">
         <form className="h-12 w-full  ">
           <input
             className={`h-full shadow-md rounded-md   py-4 px-2 w-3/4 ${
-              theme === "dark" ? "bg-black text-white" : ""
+              theme === "dark" ? "bg-gray-900 text-white" : ""
             }`}
             type="text"
             placeholder="Title"
@@ -45,7 +52,7 @@ const Notes = ({ theme, showImage, setShowImage, noteDetails }) => {
           <form className="h-36 w-full">
             <input
               className={` w-3/4 mt-1 shadow-md h-full py-4 px-2 rounded-md ${
-                theme === "dark" ? "bg-black text-white" : ""
+                theme === "dark" ? "bg-gray-900 text-white" : ""
               }`}
               type="text"
               placeholder="Description.."
@@ -103,6 +110,7 @@ const Notes = ({ theme, showImage, setShowImage, noteDetails }) => {
               {showColor &&
                 noteDetails.colors.map((col) => (
                   <div
+                    onClick={selectedColorHandler}
                     className="inline-block ml-2 h-8 w-8 rounded-full cursor-pointer"
                     style={{ backgroundColor: col.color }}
                     key={col.id}
