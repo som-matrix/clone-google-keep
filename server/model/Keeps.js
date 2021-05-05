@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const keepSchema = mongoose.Schema({
+const keepSchema = new mongoose.Schema({
   title: String,
   description: String,
   selectedFile: String,
@@ -10,4 +10,6 @@ const keepSchema = mongoose.Schema({
   },
 });
 
-export const Keep = mongoose.model("Keep", keepSchema);
+const Keep = mongoose.model("Keep", keepSchema);
+
+export default Keep;

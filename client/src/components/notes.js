@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { postKeepAction } from "../actions/keepNotes";
-import { Edit, Gallery, ColorPallete } from "../assets/svg-icons";
+import { Edit, ColorPallete } from "../assets/svg-icons";
 import FileBase from "react-file-base64";
 const Notes = ({ theme }) => {
   const dispatch = useDispatch();
   const [showImage, setShowImage] = useState(false);
   const [postNoteData, setPostNoteData] = useState({
-    Title: "",
-    Description: "",
+    title: "",
+    description: "",
     selectedImage: "",
   });
   const [baseFile, setBaseFile] = useState(" ");
@@ -53,10 +53,15 @@ const Notes = ({ theme }) => {
   return (
     <div className="w-full h-screen">
       <div className="flex items-center flex-col  max-w-4xl h-96 mx-auto">
-        <form method="post" className="h-96 w-full" onSubmit={formHandler}>
+        <form
+          action="/posts"
+          method="post"
+          className="h-96 w-full"
+          onSubmit={formHandler}
+        >
           <input
             onChange={(e) =>
-              setPostNoteData({ ...postNoteData, Title: e.target.value })
+              setPostNoteData({ ...postNoteData, title: e.target.value })
             }
             style={{
               backgroundColor: currentColor,
@@ -70,7 +75,7 @@ const Notes = ({ theme }) => {
           />
           <input
             onChange={(e) =>
-              setPostNoteData({ ...postNoteData, Description: e.target.value })
+              setPostNoteData({ ...postNoteData, description: e.target.value })
             }
             style={{
               backgroundColor: currentColor,
@@ -82,26 +87,25 @@ const Notes = ({ theme }) => {
             value={postNoteData.description}
             placeholder="Description.."
           />
-          <div className="flex items-center space-x-4 mt-3">
-            {/* <label className="inline-block mr-2" htmlFor="file">
-              <Gallery />
-            </label>
+          {/* <div className="flex items-center space-x-4 mt-3">
             <input
-              onChange={getImage}
-              onLoad={() =>
-                setPostNoteData({ ...postNoteData, selectedImage: baseFile })
+              onChange={(e) =>
+                setPostNoteData({
+                  ...postNoteData,
+                  selectedImage: e.target.files[0].name,
+                })
               }
               type="file"
               accept="image/png image/jpeg image/jpg"
-            /> */}
-            <FileBase
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) =>
-                setPostNoteData({ ...postNoteData, selectedImage: base64 })
-              }
             />
-          </div>
+          </div> */}
+          <FileBase
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) =>
+              setPostNoteData({ ...postNoteData, selectedImage: base64 })
+            }
+          />
         </form>
         <div className="w-full h-72 mt-2">
           {showImage && (
