@@ -10,9 +10,9 @@ const Notes = ({ theme }) => {
   const [postNoteData, setPostNoteData] = useState({
     title: "",
     description: "",
-    selectedImage: "",
+    image: "",
   });
-  const [baseFile, setBaseFile] = useState(" ");
+  const [baseFile, setBaseFile] = useState("");
   const [showColor, setShowColor] = useState(false);
   const [colors, setColors] = useState([
     { id: 0, bg: "#ffffff", textCol: "#333" },
@@ -48,17 +48,11 @@ const Notes = ({ theme }) => {
   const formHandler = (e) => {
     e.preventDefault();
     dispatch(postKeepAction(postNoteData));
-    console.log(postNoteData);
   };
   return (
     <div className="w-full h-screen">
       <div className="flex items-center flex-col  max-w-4xl h-96 mx-auto">
-        <form
-          action="/posts"
-          method="post"
-          className="h-96 w-full"
-          onSubmit={formHandler}
-        >
+        <form className="h-96 w-full" onSubmit={formHandler}>
           <input
             onChange={(e) =>
               setPostNoteData({ ...postNoteData, title: e.target.value })
@@ -87,25 +81,20 @@ const Notes = ({ theme }) => {
             value={postNoteData.description}
             placeholder="Description.."
           />
-          {/* <div className="flex items-center space-x-4 mt-3">
+          <div className="flex items-center space-x-4 mt-3">
             <input
-              onChange={(e) =>
-                setPostNoteData({
-                  ...postNoteData,
-                  selectedImage: e.target.files[0].name,
-                })
-              }
+              onChange={getImage}
               type="file"
               accept="image/png image/jpeg image/jpg"
             />
-          </div> */}
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) =>
-              setPostNoteData({ ...postNoteData, selectedImage: base64 })
-            }
-          />
+            {/* <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setPostNoteData({ ...postNoteData, image: base64 })
+              }
+            /> */}
+          </div>
         </form>
         <div className="w-full h-72 mt-2">
           {showImage && (

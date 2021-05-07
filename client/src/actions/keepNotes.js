@@ -29,3 +29,13 @@ export const postKeepAction = (newNote) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const postPhoto = (photo) => async (dispatch) => {
+  try {
+    const formData = new FormData();
+    formData.append("photo", photo);
+    await api.createPhoto(photo, formData);
+  } catch (error) {
+    dispatch(error.message);
+  }
+};

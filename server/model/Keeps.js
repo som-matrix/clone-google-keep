@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const keepSchema = new mongoose.Schema({
   title: String,
   description: String,
-  selectedFile: String,
+  selectedImage: String,
   date: {
     type: Date,
     default: new Date(),
