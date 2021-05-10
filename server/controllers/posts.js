@@ -9,13 +9,19 @@ export const getPost = async (req, res) => {
   }
 };
 
-export const createPost = async (req, res) => {
-  const { title, description, selectedImage } = req.body;
-  const newKeep = new Keep({ title, description, selectedImage });
-  try {
-    await newKeep.save();
-    res.status(200).json(newKeep);
-  } catch (error) {
-    res.status(409).send({ message: error.message });
-  }
+export const createPost = (req, res) => {
+  const newKeep = new Keep({
+    title: req.body.title,
+    description: req.body.description,
+  });
+  newKeep
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(newKeep);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(409).json(error);
+    });
 };

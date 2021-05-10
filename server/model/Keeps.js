@@ -1,9 +1,14 @@
 import mongoose from "mongoose";
 
-const keepSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  selectedImage: String,
+const keepSchema = mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: new Date(),
