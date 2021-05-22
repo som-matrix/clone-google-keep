@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import keepReducer from "./keepNotes";
+import keepReducer from "./keepNotesType";
 
 export const rootReducer = combineReducers({
   notes: keepReducer,
