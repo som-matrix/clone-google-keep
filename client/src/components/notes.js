@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { postKeepAction } from "../actions/keepNotes";
+import { postKeepAction } from "../actions/keepActions";
 import { Edit, ColorPallete } from "../assets/svg-icons";
 const Notes = ({ theme }) => {
   const dispatch = useDispatch();
