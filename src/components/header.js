@@ -1,11 +1,11 @@
 import React, { useState, useLayoutEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import Link from "next/link";
 // SVG's
-import Logo from "../assets/google-keep (1).png";
-import { Menu, Setting, Search, Notes, Trash } from "../assets/svg-icons";
+import Logo from "../../public/google-keep.png";
+import { Menu, Setting, Search, Notes, Trash } from "../svg-icons";
 import { motion } from "framer-motion";
+
 const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
-  const history = useHistory();
   const [showSetting, setShowSetting] = useState("false");
   const themeHandler = () => {
     if (theme === "dark") {
@@ -24,8 +24,8 @@ const Header = ({ theme, setCurrentTheme, showMenu, setShowMenu }) => {
   }, [theme, setCurrentTheme]);
   const searchHandler = (e) => {
     e.preventDefault();
-    return history.push("/search");
   };
+
   return (
     <div className="w-screen h-20 relative">
       <div className="flex p-2 items-center max-w-full">

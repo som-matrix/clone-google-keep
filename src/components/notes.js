@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { postKeepAction } from "../actions/keepActions";
-import { Edit, ColorPallete } from "../assets/svg-icons";
+import { Edit, ColorPallete } from "../svg-icons";
+
 const Notes = ({ theme }) => {
-  const dispatch = useDispatch();
   const [postNoteData, setPostNoteData] = useState({
     title: "",
     description: "",
@@ -29,8 +27,8 @@ const Notes = ({ theme }) => {
   };
   const formHandler = (e) => {
     e.preventDefault();
-    dispatch(postKeepAction(postNoteData));
   };
+
   return (
     <div className="w-full h-screen">
       <div className="flex items-center flex-col  max-w-4xl h-96 mx-auto">

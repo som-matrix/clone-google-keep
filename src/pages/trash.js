@@ -1,6 +1,7 @@
 import React from "react";
-const Trash = () => {
+
+export const TrashPage = () => {
   return <div>Trash</div>;
 };
 
-export default Trash;
+
